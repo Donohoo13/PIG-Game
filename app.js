@@ -107,7 +107,7 @@ document.querySelector(".btn-hold").addEventListener(
       document.querySelector(`#score-${activePlayer}`).textContent =
         scores[activePlayer];
       // Check if player won the game and update UI for winner.
-      if (scores[activePlayer] >= toWin) {
+      if (scores[activePlayer] >= 100) {
         document.querySelector(`#name-${activePlayer}`).textContent = "Winner!";
         document.querySelector(".dice").style.display = "none";
         document
