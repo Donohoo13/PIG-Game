@@ -19,6 +19,7 @@ const init = () => {
   activePlayer = 0;
   gameActive = true;
   // Makes sure disabled is off.
+  winTotal.value = "";
   winTotal.disabled = true;
   winTotal.disabled = false;
   // Hides dice before game has begun.
