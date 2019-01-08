@@ -17,7 +17,6 @@ const init = () => {
   roundScore = 0;
   activePlayer = 0;
   gameActive = true;
-  previousRoll = 0;
   // Hides dice before game has begun.
   document.querySelector(".dice").style.display = "none";
   // Presets score values to 0 regardless of initial HTML value.
@@ -35,7 +34,7 @@ const init = () => {
 };
 
 init();
-console.log(toWin)
+console.log(toWin);
 
 // Reset round score and change active player.
 const nextPlayer = () => {
@@ -53,49 +52,34 @@ const diceDOM = document.querySelector(".dice");
 // Roll Dice Button click handler.
 document.querySelector(".btn-roll").addEventListener(
   "click",
-  (rollDice = () => {
+  rollDice = () => {
     if (gameActive) {
-      if (previousRoll === 0) {
-        // Generates random integer between 0-5 then moves that up a number.
-        dice = Math.floor(Math.random() * 6) + 1;
-        console.log("dice", dice);
-        // Display the result to the DOM and set roll.
-        diceDOM.style.display = "block";
-        diceDOM.src = `dice-${dice}.png`;
-        previousRoll = dice;
-        // Update the current score IF the rolled number was not 1.
-        if (dice !== 1) {
-          roundScore += dice;
-          document.querySelector(
-            `#current-${activePlayer}`
-          ).textContent = roundScore;
-        } else {
-          // Reset round score and change active player.
-          nextPlayer();
-        }
+      // Generates random integer between 0-5 then moves that up a number.
+      // dice = Math.floor(Math.random() * 6) + 1;
+      dice = 6
+      console.log("Previous Roll", previousRoll)
+      console.log("Dice", dice);
+      // Display the result to the DOM and set roll.
+      diceDOM.style.display = "block";
+      diceDOM.src = `dice-${dice}.png`;
+      if (dice === 6 && previousRoll === 6) {
+        document.getElementById(`score-${activePlayer}`).textContent = "0";
+        scores[activePlayer] = 0;
+        nextPlayer();
+      // Update the current score IF the rolled number was not 1.
+      } else if (dice !== 1) {
+        roundScore += dice;
+        document.querySelector(
+          `#current-${activePlayer}`
+        ).textContent = roundScore;
       } else {
-        previousRoll = dice;
-        console.log("Previous Roll", previousRoll);
-        dice = Math.floor(Math.random() * 6) + 1;
-        console.log("dice", dice);
-        diceDOM.style.display = "block";
-        diceDOM.src = `dice-${dice}.png`;
-        if (dice === 6 && previousRoll === 6) {
-          document.getElementById(`score-${activePlayer}`).textContent = "0";
-          scores[activePlayer] = 0;
-          nextPlayer();
-        } else if (dice !== 1) {
-          roundScore += dice;
-          document.querySelector(
-            `#current-${activePlayer}`
-          ).textContent = roundScore;
-        } else {
-          nextPlayer();
-        }
+        // Reset round score and change active player.
+        nextPlayer();
       }
+      previousRoll = dice;
     }
   })
-);
+;
 
 document.querySelector(".btn-hold").addEventListener(
   "click",
