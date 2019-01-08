@@ -10,6 +10,7 @@ that, it's the next player's turn
 */
 
 let gameActive, scores, roundScore, activePlayer, previousRoll, toWin;
+const winTotal = document.querySelector(".toWin");
 
 // Function to initialize a new game
 const init = () => {
@@ -17,6 +18,9 @@ const init = () => {
   roundScore = 0;
   activePlayer = 0;
   gameActive = true;
+  // Makes sure disabled is off.
+  winTotal.disabled = true;
+  winTotal.disabled = false;
   // Hides dice before game has begun.
   document.querySelector(".dice").style.display = "none";
   // Presets score values to 0 regardless of initial HTML value.
@@ -34,7 +38,6 @@ const init = () => {
 };
 
 init();
-console.log(toWin);
 
 // Reset round score and change active player.
 const nextPlayer = () => {
@@ -48,6 +51,7 @@ const nextPlayer = () => {
 };
 
 const diceDOM = document.querySelector(".dice");
+// const winTotal = document.querySelector(".toWin");
 
 // Roll Dice Button click handler.
 document.querySelector(".btn-roll").addEventListener(
@@ -55,8 +59,7 @@ document.querySelector(".btn-roll").addEventListener(
   rollDice = () => {
     if (gameActive) {
       // Generates random integer between 0-5 then moves that up a number.
-      // dice = Math.floor(Math.random() * 6) + 1;
-      dice = 6
+      dice = Math.floor(Math.random() * 6) + 1;
       console.log("Previous Roll", previousRoll)
       console.log("Dice", dice);
       // Display the result to the DOM and set roll.
@@ -80,7 +83,7 @@ document.querySelector(".btn-roll").addEventListener(
     }
   })
 ;
-
+// const winTotal = document.querySelector(".toWin");
 document.querySelector(".btn-hold").addEventListener(
   "click",
   (holdScore = () => {
@@ -90,8 +93,17 @@ document.querySelector(".btn-hold").addEventListener(
       // Update the UI.
       document.querySelector(`#score-${activePlayer}`).textContent =
         scores[activePlayer];
+        // Get value of input field and set it to game score.
+        // const winTotal = document.querySelector(".toWin");
+        console.log("Win", winTotal.value)
+        if(winTotal.value) {
+          toWin = winTotal.value;
+        } else {
+          toWin >= 100
+        }
       // Check if player won the game and update UI for winner.
-      if (scores[activePlayer] >= 100) {
+      if (scores[activePlayer] >= toWin) {
+        winTotal.disabled = true;
         document.querySelector(`#name-${activePlayer}`).textContent = "Winner!";
         document.querySelector(".dice").style.display = "none";
         document

@@ -45,7 +45,23 @@ body {
     padding: 100px;
 }
 
+.toWin {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 520px;
+    color: #555;
+    font-size: 18px;
+    font-family: 'Lato';
+    text-align: center;
+    padding: 10px;
+    width: 190px;
+    text-transform: uppercase;
+}
 
+.toWin:focus {
+    outline: none;
+}
 
 /**********************************************
 *** PLAYERS
